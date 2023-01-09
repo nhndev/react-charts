@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import data from "./data.json"
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from "chart.js";
+import { Line } from 'react-chartjs-2';
 import './App.css';
 
 ChartJS.register(
+  ArcElement,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 function App() {
@@ -26,6 +29,8 @@ function App() {
           {
             label: 'Revenue',
             data: data.map((item) => item.trigia),
+            fill: true,
+            borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
         ],
@@ -39,7 +44,7 @@ function App() {
       <div className='chart'>
         {
           chartData && chartData?.datasets && (
-            <Bar 
+            <Line 
               options={ {
                   responsive: true,
                   plugins: {
